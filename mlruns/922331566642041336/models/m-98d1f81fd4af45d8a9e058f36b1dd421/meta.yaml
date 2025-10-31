@@ -1,0 +1,10 @@
+artifact_location: file:///Users/millatina/Documents/MU/Agentic%20AI/Assignments/Loan_Default_Prediction/loan_default_prediction/mlruns/922331566642041336/models/m-98d1f81fd4af45d8a9e058f36b1dd421/artifacts
+creation_timestamp: 1761892604802
+experiment_id: '922331566642041336'
+last_updated_timestamp: 1761892615372
+model_id: m-98d1f81fd4af45d8a9e058f36b1dd421
+model_type: null
+name: model
+source_run_id: 4913d50a38b641dfb9b73a0e5bb2a27b
+status: 2
+status_message: null

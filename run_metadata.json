@@ -1,0 +1,16 @@
+{
+  "run_id": "c9b14922df5e45329fe6c2fc275df0de",
+  "model_type": "logistic",
+  "best_params": {
+    "estimator__solver": "lbfgs",
+    "estimator__penalty": "l2",
+    "estimator__C": 0.07847599703514611
+  },
+  "metrics": {
+    "accuracy": 0.94,
+    "roc_auc": 0.9632000000000001,
+    "precision": 1.0,
+    "recall": 0.76,
+    "f1_score": 0.8636363636363636
+  }
+}

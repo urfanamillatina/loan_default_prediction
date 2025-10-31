@@ -1,0 +1,22 @@
+artifact_path: file:///Users/millatina/Documents/MU/Agentic%20AI/Assignments/Loan_Default_Prediction/loan_default_prediction/mlruns/922331566642041336/models/m-98d1f81fd4af45d8a9e058f36b1dd421/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.12.2
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.7.2
+mlflow_version: 3.5.1
+model_id: m-98d1f81fd4af45d8a9e058f36b1dd421
+model_size_bytes: 10850
+model_uuid: m-98d1f81fd4af45d8a9e058f36b1dd421
+prompts: null
+run_id: 4913d50a38b641dfb9b73a0e5bb2a27b
+utc_time_created: '2025-10-31 06:36:44.848509'

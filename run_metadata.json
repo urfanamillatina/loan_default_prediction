@@ -1,18 +1,16 @@
 {
-  "run_id": "0d2a891fe57b485a8d14e8fb978e59a3",
-  "model_type": "random_forest",
+  "run_id": "4c6f02311571457f878bcf8a94b702c1",
+  "model_type": "logistic",
   "best_params": {
-    "estimator__bootstrap": false,
-    "estimator__max_depth": 5,
-    "estimator__min_samples_leaf": 4,
-    "estimator__min_samples_split": 2,
-    "estimator__n_estimators": 200
+    "estimator__C": 0.0379269019073225,
+    "estimator__penalty": "l2",
+    "estimator__solver": "lbfgs"
   },
   "metrics": {
-    "accuracy": 0.92,
-    "roc_auc": 0.9781333333333333,
+    "accuracy": 0.89,
+    "roc_auc": 0.968,
     "precision": 1.0,
-    "recall": 0.68,
-    "f1_score": 0.8095238095238095
+    "recall": 0.56,
+    "f1_score": 0.717948717948718
   }
 }

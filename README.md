@@ -1,6 +1,21 @@
 # loan_default_prediction
 This project focuses on building an automated loan default prediction system using machine learning techniques to assess the probability of default for each applicant, enabling proactive measures for risk mitigation.
 
+
+# Create a virtual environment and install dependencies
+Using `venv`:
+```bash
+python -m venv .loanvenv
+source .loanvenv/bin/activate
+pip install -r requirements.txt
+```
+
+Or with conda:
+```bash
+conda env create -f conda.yaml
+conda activate mlflow-linear-env
+
+
 # MLFlow
 mlflow server \
   --backend-store-uri sqlite:///mlflow.db \
@@ -27,7 +42,7 @@ Run:
 ```bash
 #export MODEL_PATH=./exported_model
 set MODEL_PATH=./exported_model
-echo %MODEL_PATH% 
+echo $MODEL_PATH
 uvicorn predict_api.app:app --host 0.0.0.0 --port 9000
 ```
 POST to `http://127.0.0.1:9000/predict` with payload:
@@ -68,7 +83,7 @@ Response:
 The model is tunned with GridSearch first, then tunned again with Randomizedsearch
 
 1. **Grid search inside `train.py`** (use `--tune` with `--alpha ...`): uses `GridSearchCV` and logs the best params & model to MLflow.
-2. **Randomized search example**: ``python hyperparameter_search.py --data-path loan_default_sample.csv --target target_default --n-iter 20 --mlflow-tracking-uri http://127.0.0.1:5001
+2. **Randomized search example**: `python hyperparameter_search.py --data-path loan_default_sample.csv --target target_default --n-iter 20 --mlflow-tracking-uri http://127.0.0.1:5001`
 
 
 ---
@@ -76,10 +91,39 @@ The model is tunned with GridSearch first, then tunned again with Randomizedsear
 # Docker
 docker build -t ml-predict-api:latest -f predict_api/Dockerfile .
 
-(MacOS)
+## For MacOS
 
+### with MLFlow
 docker run --rm -p 9000:9000 \
   -e MODEL_PATH=/app/exported_model \
   -e MLFLOW_TRACKING_URI=http://host.docker.internal:5001 \
   -v "${PWD}/exported_model:/app/exported_model:ro" \
   --name ml-predict-api ml-predict-api:latest
+
+### without MLFLOW
+
+docker run --rm -p 9000:9000 \
+  -e MODEL_PATH=/app/exported_model \
+  -v "${PWD}\exported_model:/app/exported_model:ro" \
+  --name ml-predict-api ml-predict-api:latest
+
+## For Windows
+
+### with MLflow
+
+docker run --rm -p 9000:9000 `
+  -e MODEL_PATH=/app/exported_model `
+  -e MLFLOW_TRACKING_URI=http://host.docker.internal:5001 `
+  -v "${PWD}\exported_model:/app/exported_model:ro" `
+  --name ml-predict-api ml-predict-api:latest
+
+
+### without MLFLOW
+
+docker run --rm -p 9000:9000 `
+  -e MODEL_PATH=/app/exported_model `
+  -v "${PWD}\exported_model:/app/exported_model:ro" `
+  --name ml-predict-api ml-predict-api:latest
+
+
+

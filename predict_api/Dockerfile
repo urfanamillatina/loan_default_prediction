@@ -1,30 +1,10 @@
-#Builder
-FROM python:3.12-slim AS builder
-
+FROM python:3.10-slim
 WORKDIR /app
-
-# Install dependencies
-COPY requirements.txt .
-RUN pip install --upgrade pip && pip install --prefix=/install -r requirements.txt
-
-
-# Runtime
-FROM python:3.12-slim
-
-# Create non-root user
-RUN useradd -m appuser
-USER appuser
-
-WORKDIR /app
-
-# Copy installed packages from builder
-COPY --from=builder /install /usr/local
-
-# Copy source code
-COPY predict_api ./predict_api
-COPY exported_model ./exported_model
-
-# Expose FastAPI port
+COPY predict_api/requirements.txt /app/requirements.txt
+RUN pip install --no-cache-dir -r /app/requirements.txt
+COPY predict_api /app/predict_api
+COPY exported_model /app/exported_model
+ENV MODEL_PATH=/app/exported_model
 EXPOSE 9000
 
 # Run the API

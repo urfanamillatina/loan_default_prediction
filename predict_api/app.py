@@ -17,7 +17,7 @@ try:
 except Exception as e:
     model = None
     model_loaded = False
-    print(f"⚠️ Model failed to load: {e}")
+    print(f"Model failed to load: {e}")
 
 # --- Define schemas ---
 class LoanData(BaseModel):

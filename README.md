@@ -1,6 +1,17 @@
 # loan_default_prediction
 This project focuses on building an automated loan default prediction system using machine learning techniques to assess the probability of default for each applicant, enabling proactive measures for risk mitigation.
 
+## Contents
+- `train.py` - Train a Logistic Regression and Random Forest model, log to MLflow, and export the model to `exported_model/`.
+- `hyperparameter_search.py` - Example randomized search to tune Logistic Regression model and log best model to MLflow.
+- `predict_api/` - FastAPI app and Dockerfile to serve `exported_model`.
+- `MLproject`, `conda.yaml` - MLflow project metadata (optional).
+- `requirements.txt` - Python dependencies for training.
+- `predict_api/requirements.txt` - Dependencies for the API.
+- `sample_input_for_regression.csv` - Example dataset (from the uploaded archive).
+
+---
+
 
 # Create a virtual environment and install dependencies
 Using `venv`:
@@ -127,3 +138,7 @@ docker run --rm -p 9000:9000 `
 
 
 
+## Streamlit
+```
+streamlit run streamlit_app/app.py
+```

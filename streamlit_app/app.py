@@ -32,17 +32,17 @@ with st.form("single_form"):
 
     if submitted:
         record = {}
-        record["age"]= age,
-        record["annual_income"]= annual_income,
-        record["employment_length"]= employment_length,
-        record["home_ownership"]= home_ownership,
-        record["purpose"]= purpose,
-        record["loan_amount"]= loan_amount,
-        record["term_months"]= term_months,
-        record["interest_rate"]= interest_rate,
-        record["dti"]= dti,
-        record["credit_score"] = credit_score,
-        record["delinquency_2yrs"]= delinquency_2yrs,
+        record["age"]= age
+        record["annual_income"]= annual_income
+        record["employment_length"]= employment_length
+        record["home_ownership"]= home_ownership
+        record["purpose"]= purpose
+        record["loan_amount"]= loan_amount
+        record["term_months"]= term_months
+        record["interest_rate"]= interest_rate
+        record["dti"]= dti
+        record["credit_score"] = credit_score
+        record["delinquency_2yrs"]= delinquency_2yrs
         record["num_open_acc"]= num_open_acc
         
     

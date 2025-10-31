@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/millatina/Documents/MU/Agentic%20AI/Assignments/Loan_Default_Prediction/loan_default_prediction/mlruns/922331566642041336/a58725c2b93d48cd9ef752398cc6a035/artifacts
+end_time: 1761920122632
+entry_point_name: ''
+experiment_id: '922331566642041336'
+lifecycle_stage: active
+run_id: a58725c2b93d48cd9ef752398cc6a035
+run_name: train_logistic_20251031_211458
+run_uuid: a58725c2b93d48cd9ef752398cc6a035
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1761920100646
+status: 3
+tags: []
+user_id: millatina

@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/millatina/Documents/MU/Agentic%20AI/Assignments/Loan_Default_Prediction/loan_default_prediction/mlruns/110297172699464265/e846c079f5494d7a883b09787589f23b/artifacts
+end_time: 1761920185106
+entry_point_name: ''
+experiment_id: '110297172699464265'
+lifecycle_stage: active
+run_id: e846c079f5494d7a883b09787589f23b
+run_name: random_search_logistic
+run_uuid: e846c079f5494d7a883b09787589f23b
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1761920160900
+status: 3
+tags: []
+user_id: millatina

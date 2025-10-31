@@ -15,7 +15,7 @@ import json
 import numpy as np
 import pandas as pd
 from datetime import datetime
-from sklearn.model_selection import train_test_split, RandomizedSearchCV
+from sklearn.model_selection import train_test_split, RandomizedSearchCV, GridSearchCV
 from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
@@ -35,9 +35,10 @@ def parse_args():
     parser.add_argument("--target", type=str, default="", help="Target column name. If empty, last column is used.")
     parser.add_argument("--model-type", type=str, choices=["logistic", "random_forest"], default="logistic")
     parser.add_argument("--tune", action="store_true", help="Whether to run hyperparameter tuning")
+    parser.add_argument("--alpha", type=float, nargs="*", default=[0.1,1.0,10.0], help="Alpha values for the tuning")
+    parser.add_argument("--cv", type=int, default=5, help="Number of folds for cross-validation")
     parser.add_argument("--test-size", type=float, default=0.2, help="Test set fraction")
     parser.add_argument("--random-state", type=int, default=42)
-    parser.add_argument("--n-iter", type=int, default=20, help="Number of iterations for RandomizedSearchCV")
     parser.add_argument("--experiment-name", type=str, default="Classification-Experiment")
     parser.add_argument("--mlflow-tracking-uri", type=str, default=None, help="Optional MLflow tracking URI")
     parser.add_argument("--register-model", type=str, default=None, help="Optional MLflow model registry name")
@@ -111,19 +112,20 @@ def main():
 
     # Hyperparameter search space
     if args.model_type == "logistic":
-        param_dist = {
+        param_grid = {
             "estimator__C": np.logspace(-3, 3, 20),
             "estimator__solver": ["lbfgs", "liblinear"],
             "estimator__penalty": ["l2"]
         }
     else:  # Random Forest
-        param_dist = {
+        param_grid = {
             "estimator__n_estimators": [100, 200, 300],
             "estimator__max_depth": [5, 10, 20, None],
             "estimator__min_samples_split": [2, 5, 10],
             "estimator__min_samples_leaf": [1, 2, 4],
             "estimator__bootstrap": [True, False]
         }
+        
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
@@ -133,14 +135,13 @@ def main():
         mlflow.log_param("model_type", args.model_type)
         mlflow.log_param("test_size", args.test_size)
         mlflow.log_param("random_state", args.random_state)
+        
+        
 
         # Train or tune
-        if args.tune:
-            print(f"Running RandomizedSearchCV for {args.model_type} ...")
-            search = RandomizedSearchCV(
-                pipeline, param_distributions=param_dist, n_iter=args.n_iter,
-                scoring="roc_auc", cv=5, random_state=args.random_state, n_jobs=-1, verbose=2
-            )
+        if args.tune and param_grid:
+            print("Starting grid search with params:", param_grid)
+            search = GridSearchCV(pipeline, param_grid=param_grid, cv=args.cv, scoring="roc_auc", n_jobs=-1)
             search.fit(X_train, y_train)
             best_model = search.best_estimator_
             best_params = search.best_params_

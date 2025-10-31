@@ -5,9 +5,26 @@ Randomized hyperparameter search for Logistic Regression model.
 Logs best model and metrics to MLflow.
 
 usage example:
- python hyperparameter_search.py --data-path loan_default_sample.csv --target target_default 
+python hyperparameter_search.py --data-path loan_default_sample.csv --target target_default 
 
 """
+import argparse
+import numpy as np
+import pandas as pd
+from sklearn.pipeline import Pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.compose import ColumnTransformer
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import RandomizedSearchCV, train_test_split
+from sklearn.metrics import (
+    accuracy_score, roc_auc_score, precision_score, recall_score, f1_score
+)
+import mlflow
+import mlflow.sklearn
+import os, shutil
+
+
 import argparse
 import numpy as np
 import pandas as pd
@@ -31,10 +48,22 @@ def parse_args():
     parser.add_argument("--target", type=str, default="")
     parser.add_argument("--n-iter", type=int, default=10)
     parser.add_argument("--random-state", type=int, default=42)
+    parser.add_argument(
+        "--mlflow-tracking-uri",
+        type=str,
+        default=None,
+        help="MLflow tracking server URI (e.g. http://127.0.0.1:5000)",
+    )
     return parser.parse_args()
+
 
 def main():
     args = parse_args()
+
+    # Set MLflow tracking URI if provided
+    if args.mlflow_tracking_uri:
+        mlflow.set_tracking_uri(args.mlflow_tracking_uri)
+
     df = pd.read_csv(args.data_path)
     target_col = args.target if args.target else df.columns[-1]
     df = df.dropna(subset=[target_col])
@@ -89,7 +118,7 @@ def main():
         param_distributions=param_dist,
         n_iter=args.n_iter,
         cv=5,
-        scoring="roc_auc",
+        scoring="precision",
         random_state=args.random_state,
         n_jobs=-1,
         verbose=2
@@ -129,9 +158,11 @@ def main():
             shutil.rmtree("exported_model")
         mlflow.sklearn.save_model(best, "exported_model")
 
-        print("\nRandomized search complete.")
+        print("\n Randomized search complete.")
         print("Best Parameters:", search.best_params_)
         print(f"Accuracy: {accuracy:.3f}, ROC-AUC: {auc:.3f}, Precision: {precision:.3f}, Recall: {recall:.3f}, F1: {f1:.3f}")
 
+
 if __name__ == "__main__":
     main()
+

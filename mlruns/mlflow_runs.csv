@@ -1,0 +1,2 @@
+Start Time,Duration,Run ID,Name,Source Type,Source Name,User,Status,estimator__C,estimator__penalty,estimator__solver,model_type,random_state,test_size,accuracy,f1_score,precision,recall,roc_auc
+2025-10-31 20:28:22,50.3s,0b69459d7b574c999e9ed9e3dcbcd14f,train_logistic_20251031_202821,LOCAL,train.py,millatina,FINISHED,0.07847599703514611,l2,lbfgs,logistic,42,0.2,0.94,0.8636363636363636,1,0.76,0.9632000000000001

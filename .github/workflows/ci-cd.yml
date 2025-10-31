@@ -1,0 +1,42 @@
+name: CI-CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run tests
+      run: pytest --maxfail=1 --disable-warnings -q
+
+    - name: Build Docker image
+      run: docker build -t ml-predict-api .
+
+    - name: Run container and test /health endpoint
+      run: |
+        docker run -d -p 9000:9000 --name test-api ml-predict-api
+        sleep 5  # wait for FastAPI to start
+        curl --fail http://localhost:9000/health
+
+    - name: Stop and remove container
+      run: |
+        docker stop test-api
+        docker rm test-api

@@ -3,6 +3,10 @@ hyperparameter_search.py
 
 Randomized hyperparameter search for Logistic Regression model.
 Logs best model and metrics to MLflow.
+
+usage example:
+ python hyperparameter_search.py --data-path loan_default_sample.csv --target target_default 
+
 """
 import argparse
 import numpy as np

@@ -5,8 +5,8 @@ Train a Logistic Regression or Random Forest model, optionally with hyperparamet
 and log parameters, metrics, and model to MLflow.
 
 Usage examples:
-  python train.py --data-path loan_default_sample.csv --target target --model-type logistic --tune
-  python train.py --data-path loan_default_sample.csv --target target --model-type random_forest
+  python train.py --data-path loan_default_sample.csv --target target_default --model-type logistic --tune
+  python train.py --data-path loan_default_sample.csv --target target_default --model-type random_forest --tune
 """
 
 import argparse
@@ -66,7 +66,7 @@ def main():
         raise ValueError(f"Target column '{target_col}' not found in dataset")
 
     df = df.dropna(subset=[target_col])
-    X = df.drop(columns=[target_col])
+    X = df.drop(columns=[target_col, 'loan_id'])
     y = df[target_col]
 
     # Ensure 'term_months' is categorical
@@ -143,9 +143,11 @@ def main():
             )
             search.fit(X_train, y_train)
             best_model = search.best_estimator_
+            best_params = search.best_params_
             mlflow.log_params(search.best_params_)
         else:
             best_model = pipeline.fit(X_train, y_train)
+            best_params = {}
 
         # Evaluate
         preds = best_model.predict(X_test)
@@ -177,7 +179,7 @@ def main():
         meta = {
             "run_id": run_id,
             "model_type": args.model_type,
-            "best_params": getattr(best_model, "best_params_", {}),
+            "best_params": best_params,
             "metrics": metrics
         }
         with open("run_metadata.json", "w") as f:

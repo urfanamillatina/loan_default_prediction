@@ -155,6 +155,28 @@ streamlit run streamlit_app/app.py
 ## Pull from dockerhub from ubuntu (EC2 AWS)
 `docker pull mu55/ml-predict-api:latest`
 
+## Run the model
+`docker run --rm -p 9000:9000 -e MODEL_PATH=/app/exported_model --name ml-predict-api mu55/ml-predict-api:latest`
 
-docker run --rm -p 9000:9000 -e MODEL_PATH=/app/exported_model --name ml-predict-api mu55/ml-predict-api:latest
+## POSTMAN
 
+POST to `http://ec2-54-206-86-41.ap-southeast-2.compute.amazonaws.com:9000/predict` with payload:
+```json
+{
+    "records": [
+        {
+            "age": 32, 
+            "annual_income": 60000, 
+            "employment_length": 3, 
+            "home_ownership": "RENT",
+            "purpose": "credit_card", 
+            "loan_amount": 15000, 
+            "term_months": 36, 
+            "interest_rate": 12.5, 
+            "dti": 20.3, 
+            "credit_score": 720, 
+            "delinquency_2yrs": 0, 
+            "num_open_acc": 6
+        }
+    ]
+} 

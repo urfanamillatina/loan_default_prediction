@@ -44,6 +44,14 @@ mlflow server \
 ## 2. RandomForest
 `python train.py --data-path loan_default_sample.csv --target target_default --model-type random_forest --tune --mlflow-tracking-uri http://127.0.0.1:5001`
 
+# Fine-tuning / Hyperparameter search
+
+The model is tunned with GridSearch first, then tunned again with Randomizedsearch
+
+1. **Grid search inside `train.py`** (use `--tune` with `--alpha ...`): uses `GridSearchCV` and logs the best params & model to MLflow.
+2. **Randomized search example**: `python hyperparameter_search.py --data-path loan_default_sample.csv --target target_default --n-iter 20 --mlflow-tracking-uri http://127.0.0.1:5001`
+
+
 # Run the FastAPI app
 Install API dependencies:
 ```bash
@@ -89,15 +97,6 @@ Response:
     ]
 }
 ```
-## Fine-tuning / Hyperparameter search
-
-The model is tunned with GridSearch first, then tunned again with Randomizedsearch
-
-1. **Grid search inside `train.py`** (use `--tune` with `--alpha ...`): uses `GridSearchCV` and logs the best params & model to MLflow.
-2. **Randomized search example**: `python hyperparameter_search.py --data-path loan_default_sample.csv --target target_default --n-iter 20 --mlflow-tracking-uri http://127.0.0.1:5001`
-
-
----
 
 # Docker
 docker build -t ml-predict-api:latest -f predict_api/Dockerfile .
@@ -141,4 +140,19 @@ docker run --rm -p 9000:9000 `
 ## Streamlit
 ```
 streamlit run streamlit_app/app.py
+
 ```
+
+
+# Pushing to DockerHub
+`docker build -t mu55/ml-predict-api:latest -f predict_api/Dockerfile .`
+
+### Push the image to dockerhub
+`docker push mu55/ml-predict-api:latest`
+
+### Pull from dockerhub from ubuntu (EC2 AWS)
+`docker pull mu55/ml-predict-api:latest`
+
+
+docker run --rm -p 9000:9000 -e MODEL_PATH=/app/exported_model --name ml-predict-api mu55/ml-predict-api:latest
+

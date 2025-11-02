@@ -1,5 +1,5 @@
 {
-  "run_id": "4c6f02311571457f878bcf8a94b702c1",
+  "run_id": "bad1866ba7c14ece82c0f10c57a7d612",
   "model_type": "logistic",
   "best_params": {
     "estimator__C": 0.0379269019073225,

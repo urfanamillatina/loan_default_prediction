@@ -67,7 +67,7 @@ def main():
     df = pd.read_csv(args.data_path)
     target_col = args.target if args.target else df.columns[-1]
     df = df.dropna(subset=[target_col])
-    X = df.drop(columns=[target_col])
+    X = df.drop(columns=[target_col, 'loan_id'])
     y = df[target_col]
 
     # Treat 'term_months' as categorical (even if numeric)

@@ -144,13 +144,15 @@ streamlit run streamlit_app/app.py
 ```
 
 
-# Pushing to DockerHub
+# Dockerhub
+
+## Build image
 `docker build -t mu55/ml-predict-api:latest -f predict_api/Dockerfile .`
 
-### Push the image to dockerhub
+## Push the image to dockerhub
 `docker push mu55/ml-predict-api:latest`
 
-### Pull from dockerhub from ubuntu (EC2 AWS)
+## Pull from dockerhub from ubuntu (EC2 AWS)
 `docker pull mu55/ml-predict-api:latest`
 
 

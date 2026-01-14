@@ -1,8 +1,0 @@
-#!/Users/millatina/Documents/MU/Agentic AI/Assignments/Loan_Default_Prediction/loan_default_prediction/.loanvenv/bin/python
-# -*- coding: UTF-8 -*-
-from __future__ import print_function, division, absolute_import
-
-from numba.misc.numba_entry import main
-
-if __name__ == "__main__":
-    main()

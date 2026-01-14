@@ -47,6 +47,9 @@ conda activate mlflow-linear-env
 ```
 
 # MLFlow
+
+MLflow is used in this project to track, compare, and manage machine learning experiments during model development. It provides visibility into how different models, hyperparameters, and training runs perform, ensuring reproducibility, transparency, and model governance
+
 ```
 mlflow server \
   --backend-store-uri sqlite:///mlflow.db \
@@ -139,7 +142,31 @@ Response:
 
 
 # Docker
+## Overview
+Docker and AWS EC2 are used to package, deploy, and run the trained machine learning model in a production-like environment. Together, they ensure that the prediction service is portable, scalable, and cloud-ready.
+
+This setup allows the same model to run consistently:
+
+- On local machines
+
+- Inside Docker containers
+
+- On a remote AWS EC2 server
+
+
+The Docker image includes:
+
+- FastAPI app (predict_api/app.py)
+
+- Exported ML model (exported_model/)
+
+- API dependencies (predict_api/requirements.txt)
+
+- Runtime configuration (MODEL_PATH, MLflow URI)
+
+```
 docker build -t ml-predict-api:latest -f predict_api/Dockerfile .
+```
 
 ## For MacOS
 
@@ -217,6 +244,15 @@ docker push mu55/ml-predict-api:latest
 </p>
 
 ## Pull from dockerhub from ubuntu (EC2 AWS)
+
+AWS EC2 provides a persistent, publicly accessible compute instance where the Dockerized API runs 24/7.
+
+EC2 acts as:
+
+- A production-like inference server
+
+- A public endpoint for external clients (Postman, Streamlit UI)
+
 ```
 docker pull mu55/ml-predict-api:latest
 ```

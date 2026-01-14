@@ -58,7 +58,7 @@ mlflow server \
   Then open MLflow UI at: http://127.0.0.1:5001
 
   <p align="center">
-  <img src="./proof_screenshots/MLFlow.png" width="400"/><br/>
+  <img src="./proof_screenshots/MLFlow.png" width="600"/><br/>
   <em>MLFlow</em>
 </p>
 
@@ -82,7 +82,7 @@ The model is tunned with GridSearch first, then tunned again with Randomizedsear
 2. **Randomized search example**: `python hyperparameter_search.py --data-path loan_default_sample.csv --target target_default --n-iter 20 --mlflow-tracking-uri http://127.0.0.1:5001`
 
 <p align="center">
-  <img src="./proof_screenshots/tuning_random_search_logistic.png" width="400"/><br/>
+  <img src="./proof_screenshots/tuning_random_search_logistic.png" width="600"/><br/>
   <em>Fine-tuning </em>
 </p>
 
@@ -189,7 +189,7 @@ streamlit run streamlit_app/app.py
 
 ```
 <p align="center">
-  <img src="./proof_screenshots/streamlit.png" width="400"/><br/>
+  <img src="./proof_screenshots/streamlit.png" width="600"/><br/>
   <em>Streamlit User Interface </em>
 </p>
 
@@ -202,7 +202,7 @@ docker build -t mu55/ml-predict-api:latest -f predict_api/Dockerfile .
 ```
 
 <p align="center">
-  <img src="./proof_screenshots/docker_image.png" width="400"/><br/>
+  <img src="./proof_screenshots/docker_image.png" width="600"/><br/>
   <em>Docker Image</em>
 </p>
 
@@ -212,7 +212,7 @@ docker build -t mu55/ml-predict-api:latest -f predict_api/Dockerfile .
 docker push mu55/ml-predict-api:latest
 ```
 <p align="center">
-  <img src="/Users/millatina/Documents/MU/Agentic AI/Assignments/Loan_Default_Prediction/loan_default_prediction/proof_screenshots/docker_hub.png" width="400"/><br/>
+  <img src="./proof_screenshots/docker_hub.png" width="600"/><br/>
   <em>Docker Image on DockerHub</em>
 </p>
 
@@ -222,7 +222,7 @@ docker pull mu55/ml-predict-api:latest
 ```
 
 <p align="center">
-  <img src="./proof_screenshots/ubuntu_terminal_success.png" width="400"/><br/>
+  <img src="./proof_screenshots/ubuntu_terminal_success.png" width="600"/><br/>
   <em>Ubuntu Terminal</em>
 </p>
 
@@ -232,7 +232,7 @@ docker run --rm -p 9000:9000 -e MODEL_PATH=/app/exported_model --name ml-predict
 ```
 
 <p align="center">
-  <img src="./proof_screenshots/docker_1.png" width="400"/><br/>
+  <img src="./proof_screenshots/docker_1.png" width="600"/><br/>
   <em>Run on Docker </em>
 </p>
 
@@ -261,6 +261,6 @@ POST to `http://ec2-54-206-86-41.ap-southeast-2.compute.amazonaws.com:9000/predi
 ```
 
 <p align="center">
-  <img src="./proof_screenshots/EC2_postman_success.png" width="400"/><br/>
+  <img src="./proof_screenshots/EC2_postman_success.png" width="600"/><br/>
   <em>EC2 Postman - Success </em>
 </p>
